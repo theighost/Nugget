@@ -22,6 +22,7 @@
     "unescape": "^1.0.1"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "8.9.x",
+    "npm": "5.2.x"
   }
 }
