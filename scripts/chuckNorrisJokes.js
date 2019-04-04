@@ -112,7 +112,7 @@ module.exports = function(robot) {
                         }
                         const data = JSON.parse(body);
                         trackJoke(userID);
-                        await(sleep(300));
+                        await(sleep(2000));
                         await sendFBTextMessage(userID, "Here it goes:");
                         await sendFBTextMessage(userID, decode(data.value.joke));
                         robot.brain.set(`busy_${userID}`,0);
