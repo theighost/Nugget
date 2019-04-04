@@ -1,5 +1,6 @@
 const jokes = require('../Models/jokesModel');
-const config = require('../Config/');
+const config = require('../Config');
+
 const mongoose = require('mongoose');
 const decode = require('unescape');
 let timeLimit = 86400;
