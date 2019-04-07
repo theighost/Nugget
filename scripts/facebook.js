@@ -21,6 +21,10 @@ const User = require('hubot').User;
 const TextMessage = require('hubot').TextMessage;
 module.exports = function(robot) {
       
+  robot.router.get('/', function(req, res) {
+    return res.send(200, '');
+  });
+
   //Listen for Facebook webhook subscription verification
   robot.router.get('/chatBot', function(req, res) {
     return res.send(200, req.query['hub.challenge']);
