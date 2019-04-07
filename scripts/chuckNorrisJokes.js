@@ -1,3 +1,22 @@
+// Description:
+//   All about chuck norris jokes
+//
+// Dependencies:
+//   "<module name>": "<module version>"
+//
+// Configuration:
+//   LIST_OF_ENV_VARS_TO_SET
+//
+// Commands:
+//   hubot joke about chuck norris - Will reply with a chuck norris joke
+//   joke about chuck norris - Will reply with a chuck norris joke
+//
+// Notes:
+//   <optional notes required for the script>
+//
+// Author:
+//   <github username of the original script author></github>
+
 const jokes = require('../Models/jokesModel');
 const config = require('../Config');
 
