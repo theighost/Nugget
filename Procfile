@@ -1,1 +1,1 @@
-web: NODE_ENV=production bin/hubot
+web: bin/hubot
