@@ -16,7 +16,7 @@
 //
 // Author:
 //   <github username of the original script author></github>
-
+const WORKERS = process.env.WEB_CONCURRENCY || 1;
 const User = require('hubot').User;
 const TextMessage = require('hubot').TextMessage;
 module.exports = function(robot) {
