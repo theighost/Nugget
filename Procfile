@@ -1,1 +1,1 @@
-web: bin/hubot
+worker: bin/hubot
