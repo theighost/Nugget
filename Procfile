@@ -1,1 +1,1 @@
-web: MIX_ENV=prod mix bin/hubot
+web: NODE_ENV=production bin/hubot
