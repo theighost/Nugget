@@ -23,7 +23,7 @@ const config = require('../Config');
 const mongoose = require('mongoose');
 const decode = require('unescape');
 let timeLimit = 24; //Time limit, in hours
-let jokesLimit = 10; // 
+let jokesLimit = 10; // number of jokes allowed per time limit
 module.exports = function(robot) {
 
     mongoose.connect(config.getDbConnectionString(), {useNewUrlParser: true});
