@@ -84,7 +84,6 @@ module.exports = function(robot) {
             return new Promise(function(resolve, reject) {
             if(user){
                 jokes.find({user: user}).where('timestamp').gt(Math.round(parseInt((new Date()).getTime()) - (timeLimit*60*60*1000))).exec().then(result=>{
-                    console.log('Now: '+Math.round(parseInt((new Date()).getTime())/1000));
                     
                     if(result.length > numberLimit-1)
                         resolve (false);
@@ -113,15 +112,12 @@ module.exports = function(robot) {
 
     //Listen for requests for a chuck norris joke, and delivers the joke to facebook messenger
     robot.hear(/(chuck norris.*joke|joke.*chuch norris)/gi, async function(res) {
-            console.log('chuck1');
             const userID = res.message.user.name;
             const busyFetchingJoke = robot.brain.get(`busy_${userID}`) * 1 || 0;
             const limitReached = robot.brain.get(`limitJokesReached_${userID}`);
             if(busyFetchingJoke == 0)
             {
-                console.log('chuck2');
                 const permission = await checkPermission(userID);
-                console.log('chuck permission '+permission);
                 if(!permission){
                     sendFBTextMessage(userID, "I can\'t think of any jokes now, come back soon, or if you insist, you can answer a quiz and I'll reset your jokes for today.");
                     robot.brain.set(`limitJokesReached_${userID}`,1);
