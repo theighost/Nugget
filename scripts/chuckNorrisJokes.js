@@ -22,7 +22,7 @@ const config = require('../Config');
 
 const mongoose = require('mongoose');
 const decode = require('unescape');
-let timeLimit = 1;
+let timeLimit = 24;
 let numberLimit = 2;
 module.exports = function(robot) {
 
