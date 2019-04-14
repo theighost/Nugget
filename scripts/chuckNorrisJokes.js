@@ -22,8 +22,8 @@ const config = require('../Config');
 
 const mongoose = require('mongoose');
 const decode = require('unescape');
-let timeLimit = 24;
-let numberLimit = 2;
+let timeLimit = 24; //Time limit, in hours
+let jokesLimit = 10; // 
 module.exports = function(robot) {
 
     mongoose.connect(config.getDbConnectionString(), {useNewUrlParser: true});
@@ -85,7 +85,7 @@ module.exports = function(robot) {
             if(user){
                 jokes.find({user: user}).where('timestamp').gt(Math.round(parseInt((new Date()).getTime()) - (timeLimit*60*60*1000))).exec().then(result=>{
                     
-                    if(result.length > numberLimit-1)
+                    if(result.length > jokesLimit-1)
                         resolve (false);
                     resolve (true);
                     });
