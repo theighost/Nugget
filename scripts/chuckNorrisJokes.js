@@ -22,8 +22,8 @@ const config = require('../Config');
 
 const mongoose = require('mongoose');
 const decode = require('unescape');
-let timeLimit = 86400;
-let numberLimit = 10;
+let timeLimit = 1;
+let numberLimit = 2;
 module.exports = function(robot) {
 
     mongoose.connect(config.getDbConnectionString(), {useNewUrlParser: true});
@@ -83,7 +83,9 @@ module.exports = function(robot) {
     function checkPermission(user){
             return new Promise(function(resolve, reject) {
             if(user){
-                jokes.find({user: user}).where('timestamp').gt(Math.round(parseInt((new Date()).getTime())/1000 - timeLimit)).exec().then(result=>{
+                jokes.find({user: user}).where('timestamp').gt(Math.round(parseInt((new Date()).getTime()) - (timeLimit*60*60*1000))).exec().then(result=>{
+                    console.log('Now: '+Math.round(parseInt((new Date()).getTime())/1000));
+                    
                     if(result.length > numberLimit-1)
                         resolve (false);
                     resolve (true);
@@ -91,7 +93,8 @@ module.exports = function(robot) {
             }
         });
     }
-    
+    1554412017629
+    1555242792
     //Registers a joke in the DB for a given user
     async function trackJoke(user){
         return new Promise(function(resolve,reject){
@@ -110,13 +113,15 @@ module.exports = function(robot) {
 
     //Listen for requests for a chuck norris joke, and delivers the joke to facebook messenger
     robot.hear(/(chuck norris.*joke|joke.*chuch norris)/gi, async function(res) {
+            console.log('chuck1');
             const userID = res.message.user.name;
             const busyFetchingJoke = robot.brain.get(`busy_${userID}`) * 1 || 0;
             const limitReached = robot.brain.get(`limitJokesReached_${userID}`);
-            if(busyFetchingJoke == 0||limitReached != 1)
+            if(busyFetchingJoke == 0)
             {
+                console.log('chuck2');
                 const permission = await checkPermission(userID);
-
+                console.log('chuck permission '+permission);
                 if(!permission){
                     sendFBTextMessage(userID, "I can\'t think of any jokes now, come back soon, or if you insist, you can answer a quiz and I'll reset your jokes for today.");
                     robot.brain.set(`limitJokesReached_${userID}`,1);

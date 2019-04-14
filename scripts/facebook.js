@@ -32,13 +32,14 @@ module.exports = function(robot) {
 
   //Listen for messages from Facebook messenger
   robot.router.post('/chatBot', function(req, res) {
-   const messageEvent = req.body.entry[0].messaging[0];
-    
+   res.send(200,'')
+    const messageEvent = req.body.entry[0].messaging[0];
     if(messageEvent.message && messageEvent.message.text){
       user = new User(messageEvent.sender.id, {name: messageEvent.sender.id});
 
       message = new TextMessage(user, messageEvent.message.text, messageEvent.sender.id);
       return robot.receive(message);
     }
-  });      
+  });   
+     
 }
